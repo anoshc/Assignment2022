@@ -11,8 +11,8 @@ class Database
         // echo "Database : connect<br>";
 
         $host = 'localhost';
-        $username = 'root';
-        $password = '';
+        $username = 'anosh';
+        $password = 'anosh';
         $database = 'ecommerce';
 
         $connection = mysqli_connect($host, $username, $password, $database);
