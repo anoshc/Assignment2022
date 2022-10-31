@@ -1,33 +1,37 @@
 <?php // superclass definition : Database
 // contains Database related methods. 
 
-echo "In class: Database<br>";
+//echo "In class: Database<br>";
 
-class Database{
-    
-   public function connect(){
-        echo "Database : connect<br>";
-        
+class Database
+{
+
+    public function connect()
+    {
+        // echo "Database : connect<br>";
+
         $host = 'localhost';
         $username = 'root';
-        $password = 'root';
+        $password = '';
         $database = 'ecommerce';
 
-        $connection = mysqli_connect($host,$username,$password,$database);
+        $connection = mysqli_connect($host, $username, $password, $database);
 
-        if($connection){
+        if ($connection) {
             //echo "We are connected!<br>";
-        }else {
-            die ("Database connection failed");
+        } else {
+            die("Database connection failed");
         }
         return $connection;
     }
-    
-    protected function disconnect($connection){
+
+    protected function disconnect($connection)
+    {
         mysqli_close($connection);
     }
-    
-    protected function readFromTable($tableName){
+
+    protected function readFromTable($tableName)
+    {
         echo "Database:readFromTable<br>";
         $connection = Database::connect();
         //query the database
@@ -36,15 +40,15 @@ class Database{
         $result = mysqli_query($connection, $query);
 
         // printing error message in case of query failure
-        if(!$result){
+        if (!$result) {
             die('Query failed!' . mysqli_error($connection));
-        }else {
+        } else {
             //echo "Entries Retrieved!<br>";
         }
 
         //read 1 row at a time
         $idx = 0;
-        while($row=mysqli_fetch_assoc($result)){
+        while ($row = mysqli_fetch_assoc($result)) {
             //print_r($row);echo "<br>";
             $resArray[$idx] = $row;
             $idx++;
@@ -52,18 +56,10 @@ class Database{
 
         Database::disconnect($connection);
         return $resArray;
-
     }
-    
+
     // sanitize input
-    protected function cleanVar($var, $connection){
-        
-        
-
+    protected function cleanVar($var, $connection)
+    {
     }
-    
 }
-
-
-
-?>

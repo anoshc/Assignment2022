@@ -24,6 +24,47 @@ class User extends Database
         }
         $this->disconnect($connection);
     }
-}
 
-?>
+    function userNameAvailable($username)
+    {
+
+        $connection = $this->connect();
+
+        $query = ("SELECT username FROM users WHERE username='$username'");
+        $result = mysqli_query($connection, $query);
+
+        $isUsernameAvailable = mysqli_num_rows($result) <= 0;
+        $this->disconnect($connection);
+
+        return $isUsernameAvailable;
+    }
+
+    function emailAvailable($email)
+    {
+
+        $connection = $this->connect();
+
+        $query = ("SELECT username FROM users WHERE email='$email'");
+        $result = mysqli_query($connection, $query);
+
+        $isEmailAvailable = mysqli_num_rows($result) <= 0;
+        $this->disconnect($connection);
+
+        return $isEmailAvailable;
+    }
+
+    function register($username, $email, $password)
+    {
+        $connection = $this->connect();
+
+        $username = $connection->real_escape_string($username);
+        $email = $connection->real_escape_string($email);
+        $password = $connection->real_escape_string($password);
+
+        $password = md5($password);
+
+        $query = "INSERT INTO users (username, email, password, role)";
+        $query .= "VALUES('$username', '$email', '$password', '1')";
+        return mysqli_query($connection, $query);
+    }
+}

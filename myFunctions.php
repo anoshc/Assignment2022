@@ -1,7 +1,5 @@
 <?php
-
 require 'classes/class_Database.php';
-
 session_start();
 
 
@@ -12,6 +10,8 @@ if (isset($_POST['register-btn'])) {
 function register()
 {
     global $connection, $errors, $username, $email;
+
+    var_dump($connection);
 
     $username = e($_POST['username']);
     $email = e($_POST['email']);
@@ -51,7 +51,8 @@ function register()
     }
 }
 
-function getUserById($id){
+function getUserById($id)
+{
     global $connection;
     $query = "SELECT * FROM users WHERE id=" . $id;
     $result = mysqli_query($connection, $query);
@@ -60,18 +61,20 @@ function getUserById($id){
     return $user;
 }
 
-function e($val){
-    global $connection;
-    return mysqli_real_escape_string($connection, trim($val));
+function e($val)
+{
+    return $val;
+    // return $mysqli->real_escape_string($val);
 }
 
-function displayError(){
+function displayError()
+{
     global $errors;
 
-    if(count($errors) > 0){
+    if (count($errors) > 0) {
         echo '<div class="error">';
-        foreach ($errors as $error){
-            echo $error .'<br>';
+        foreach ($errors as $error) {
+            echo $error . '<br>';
         }
         echo '</div>';
     }
@@ -79,53 +82,51 @@ function displayError(){
 
 function isLoggedIn()
 {
-    if (isset($_SESSION['user'])){
+    if (isset($_SESSION['user'])) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-if (isset($_POST['login-btn'])){
+if (isset($_POST['login-btn'])) {
     login();
 }
 
-function login(){
+function login()
+{
     global $connection, $username, $errors;
 
     $username = e($_POST['username']);
     $password = e($_POST['password']);
 
-    if(empty($username)){
+    if (empty($username)) {
         array_push($errors, "Username is required");
     }
-    if (empty($password)){
+    if (empty($password)) {
         array_push($errors, "Password is required");
     }
 
-    if (count($errors) == 0){
-        $password= md5($password);
+    if (count($errors) == 0) {
+        $password = md5($password);
 
         $query = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
         $results = mysqli_query($connection, $query);
 
-        if (mysqli_num_rows($results) == 1){
+        if (mysqli_num_rows($results) == 1) {
             $logged_in_user = mysqli_fetch_assoc($results);
-            if ($logged_in_user['role'] == '0'){
+            if ($logged_in_user['role'] == '0') {
 
                 $_SESSION['user'] = $logged_in_user;
                 $_SESSION['success'] = "You are now logged in";
                 header('location: adminPage.php');
-            } else{
+            } else {
                 $_SESSION['user'] = $logged_in_user;
                 $_SESSION['success'] = "You are now logged in";
                 header('location : index.php');
             }
-        }else{
+        } else {
             array_push($errors, "Wrong username or password");
         }
     }
-
 }
-
-?>

@@ -10,6 +10,7 @@ displayNavBar();
 <head>
     <meta charset="UTF-8">
     <title>Ecommerce - Login </title>
+    <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
