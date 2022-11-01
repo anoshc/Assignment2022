@@ -1,6 +1,8 @@
 <?php
-include "functions.php";
+require "functions.php";
+require "classes/class_User.php";
 displayNavBar();
+
 
 ?>
 
@@ -9,34 +11,30 @@ displayNavBar();
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecommerce - Login </title>
     <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
-
     <header>
         <h2>Login</h2>
     </header>
 
     <form action="login.php" method="post">
-
         <div class="input-group">
-            <label>Username</label>
-            <input type="text" name="username">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
         </div>
-
         <div class="input-group">
-            <label>Password</label>
-            <input type="password" name="password">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
         </div>
-
         <div class="input-group">
             <button type="submit" class="btn" name="login-btn">Login</button>
         </div>
-        <p>
-            Not a member? <a href="register.php">Sign up</a>
-        </p>
+        <p>Not a member? <a href="register.php">Login</a></p>
     </form>
 
     <?php

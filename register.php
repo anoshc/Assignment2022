@@ -1,7 +1,6 @@
 <?php
-include "functions.php";
+require "functions.php";
 require_once "classes/class_User.php";
-// include "myFunctions.php";
 displayNavBar();
 
 if (isset($_POST['register-btn'])) {
