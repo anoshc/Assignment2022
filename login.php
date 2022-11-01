@@ -2,6 +2,44 @@
 require "functions.php";
 require "classes/class_User.php";
 displayNavBar();
+session_start();
+
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $user = new User();
+
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if (empty($username)) {
+        header("location: login.php?error=Username is required");
+        exit();
+    } else if (empty($password)) {
+        header("location: login.php?error=Password is required");
+        exit();
+    } else {
+        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+        $result = mysqli_query($connection, $query);
+
+        if (mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+
+            if ($row['username'] === $username && $row['password'] === $password) {
+                echo "You are logged in";
+            } else {
+                header("location: login.php?error=Incorrect username or password");
+                exit();
+            }
+        } else {
+            header("location: login.php?error=Incorrect username or password");
+            exit();
+        }
+    }
+
+    $result = $user->login($username, $password);
+    header('location: home.php');
+}
 
 
 ?>
@@ -23,6 +61,9 @@ displayNavBar();
     </header>
 
     <form action="login.php" method="post">
+        <?php if (isset($_GET['error'])) { ?>
+            <p class="error"><?php echo $_GET['error']; ?></p>
+        <?php } ?>
         <div class="input-group">
             <label for="username">Username</label>
             <input type="text" name="username" id="username">

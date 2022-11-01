@@ -67,4 +67,17 @@ class User extends Database
         $query .= "VALUES('$username', '$email', '$password', '1')";
         return mysqli_query($connection, $query);
     }
+
+    function login($username, $password){
+
+        $connection = $this->connect();
+
+        $username = $connection->$username;
+        $password = $connection->$password;
+
+        $query = "INSERT INTO users (username, password)";
+        $query .= "VALUES('$username', '$password')";
+        return mysqli_query($connection, $query);
+
+    }
 }
