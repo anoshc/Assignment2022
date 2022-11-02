@@ -38,9 +38,13 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         // }
 
         $result = $user->login($username, $password);
-        echo $result;
 
-        //header('location: home.php');
+        if ($result > 0) {
+            header('location: home.php');
+        } else {
+            header("location: login.php?error=Incorrect username or password");
+            exit();
+        }
     }
 }
 
