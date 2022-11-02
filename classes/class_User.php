@@ -80,9 +80,12 @@ class User extends Database
         $query = ("SELECT username, email, role FROM users WHERE username='$username' AND password='$password'");
         $result = mysqli_query($connection, $query);
 
-        // $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
         $count = mysqli_num_rows($result);
+
+        // if $count is greater then 0 then save user information in session
+        // hint -> $row = mysqli_fetch_assoc($result);
+
 
         return $count;
     }
