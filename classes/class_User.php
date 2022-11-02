@@ -68,16 +68,16 @@ class User extends Database
         return mysqli_query($connection, $query);
     }
 
-    function login($username, $password){
+    function login($username, $password)
+    {
 
         $connection = $this->connect();
+        $username = $connection->real_escape_string($username);
+        $password = $connection->real_escape_string($password);
+        $password = md5($password);
 
-        $username = $connection->$username;
-        $password = $connection->$password;
+        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 
-        $query = "INSERT INTO users (username, password)";
-        $query .= "VALUES('$username', '$password')";
         return mysqli_query($connection, $query);
-
     }
 }

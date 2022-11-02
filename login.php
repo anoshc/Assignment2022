@@ -19,26 +19,29 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         header("location: login.php?error=Password is required");
         exit();
     } else {
-        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $result = mysqli_query($connection, $query);
 
-        if (mysqli_num_rows($result) === 1) {
-            $row = mysqli_fetch_assoc($result);
+        // $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+        // $result = mysqli_query($connection, $query);
 
-            if ($row['username'] === $username && $row['password'] === $password) {
-                echo "You are logged in";
-            } else {
-                header("location: login.php?error=Incorrect username or password");
-                exit();
-            }
-        } else {
-            header("location: login.php?error=Incorrect username or password");
-            exit();
-        }
+        // if (mysqli_num_rows($result) === 1) {
+        //     $row = mysqli_fetch_assoc($result);
+
+        //     if ($row['username'] === $username && $row['password'] === $password) {
+        //         echo "You are logged in";
+        //     } else {
+        //         header("location: login.php?error=Incorrect username or password");
+        //         exit();
+        //     }
+        // } else {
+        //     header("location: login.php?error=Incorrect username or password");
+        //     exit();
+        // }
+
+        $result = $user->login($username, $password);
+        echo $result;
+
+        //header('location: home.php');
     }
-
-    $result = $user->login($username, $password);
-    header('location: home.php');
 }
 
 
@@ -75,7 +78,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         <div class="input-group">
             <button type="submit" class="btn" name="login-btn">Login</button>
         </div>
-        <p>Not a member? <a href="register.php">Login</a></p>
+        <p>Not a member? <a href="register.php">Sign up</a></p>
     </form>
 
     <?php
