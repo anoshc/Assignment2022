@@ -23,6 +23,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $result = $user->login($username, $password);
 
         if ($result > 0) {
+
+            $session_register("username");
+            $_SESSION['login_user'] = $username;
             header('location: home.php');
         } else {
             header("location: login.php?error=Incorrect username or password");
