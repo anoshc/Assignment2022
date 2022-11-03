@@ -20,23 +20,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         exit();
     } else {
 
-        // $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        // $result = mysqli_query($connection, $query);
-
-        // if (mysqli_num_rows($result) === 1) {
-        //     $row = mysqli_fetch_assoc($result);
-
-        //     if ($row['username'] === $username && $row['password'] === $password) {
-        //         echo "You are logged in";
-        //     } else {
-        //         header("location: login.php?error=Incorrect username or password");
-        //         exit();
-        //     }
-        // } else {
-        //     header("location: login.php?error=Incorrect username or password");
-        //     exit();
-        // }
-
         $result = $user->login($username, $password);
 
         if ($result > 0) {
