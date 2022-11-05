@@ -16,6 +16,8 @@ function displayNavBar()
     } else {
         echo "<a href='login.php'>Sign in</a>  ";
     }
+
+    
     // You can add more pages here
 
 

@@ -48,7 +48,7 @@ class User extends Database
 
         $connection = $this->connect();
 
-        $query = ("SELECT username FROM users WHERE email='$email'");
+        $query = ("SELECT email FROM users WHERE email='$email'");
         $result = mysqli_query($connection, $query);
 
         $isEmailAvailable = mysqli_num_rows($result) <= 0;
