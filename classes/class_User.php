@@ -1,6 +1,8 @@
 <?php
 
 require_once "class_Database.php";
+session_start();
+
 class User extends Database
 {
     function createAdminUserIfNotExist()
@@ -9,6 +11,8 @@ class User extends Database
         $password = '0admin0';
         $email = 'admin@ecommerce.com';
         $role = '0';
+
+        $password = md5($password);
 
         $connection = $this->connect();
 
@@ -83,10 +87,37 @@ class User extends Database
 
         $count = mysqli_num_rows($result);
 
-        // if $count is greater then 0 then save user information in session
-        // hint -> $row = mysqli_fetch_assoc($result);
 
+        if ($count > 0) {
+            $row = mysqli_fetch_assoc($result);
+
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = $row['role'];
+        }
 
         return $count;
+    }
+
+    function isLoggedIn()
+    {
+        if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+            return true;
+        }
+        return false;
+    }
+
+    function logout()
+    {
+        return session_destroy();
+    }
+
+    function isAdmin()
+    {
+
+        if ($this->isLoggedIn() && $_SESSION['role'] == 0) {
+
+            return true;
+        }
+        return false;
     }
 }

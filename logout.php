@@ -1,7 +1,7 @@
 <?php
-session_start();
+require_once "classes/class_User.php";
+$user = new User();
 
-if(session_destroy()){
-    header("location: login.php");
+if ($user->logout()) {
+    header("location: index.php");
 }
-?>

@@ -1,8 +1,7 @@
 <?php
 require "functions.php";
-require "classes/class_User.php";
+require_once "classes/class_User.php";
 displayNavBar();
-session_start();
 
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -22,10 +21,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         $result = $user->login($username, $password);
 
-
         if ($result > 0) {
-            $_SESSION['username'] = $username;
-            header('location: home.php');
+            header('location: index.php');
+            exit();
         } else {
             header("location: login.php?error=Incorrect username or password");
             exit();
