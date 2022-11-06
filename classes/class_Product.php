@@ -15,9 +15,9 @@ class Product extends Database{
 
         $connection = $this->connect();
 
-        $product_name = $connection->$product_name;
-        $description = $connection->$description;
-        $price = $connection->$price;
+        $product_name = $connection->real_escape_string($product_name);
+        $description = $connection->real_escape_string($description);
+        $price = $connection->real_escape_string($price);
 
         $query = "INSERT INTO products(product_name, description, price) ";
         $query .= "VALUES('$product_name', '$description', '$price')";
