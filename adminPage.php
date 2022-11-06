@@ -54,15 +54,15 @@ if (isset($_POST['submit'])) {
     <form action="adminPage.php" method="post">
         <div class="input-group">
             <label for="product_name">Product name</label>
-            <input type="text" id="product_name" name="product_name" value=""><br>
+            <input type="text" id="product_name" name="product_name"><br>
         </div>
         <div class="input-group">
             <label for="description">Description</label>
-            <input type="text" id="description" name="description" value=""><br>
+            <input type="text" id="description" name="description"><br>
         </div>
         <div class="input-group">
             <label for="price">Price</label>
-            <input type="number" id="price" name="price" value=""><br>
+            <input type="number" id="price" name="price"<br>
         </div>
         <div class="input-group">
             <button type="submit" id="submit" name="submit" class="button">
