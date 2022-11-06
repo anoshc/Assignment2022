@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 
 
     $result = $product->addProductToDB($product_name, $description, $price);
-    header('location: thankyou.php');
+    header('location: index.php');
 
 }
 ?>
