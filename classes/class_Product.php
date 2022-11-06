@@ -5,12 +5,13 @@ echo "In class: Product<br>";
 
 class Product extends Database{
     // properties example, add more properties if needed
-    protected $product_Name;
-    protected $description;
+    public $product_Name;
+    public $description;
+    public $price;
     
     
     // a method example, add other methods if needed. 
-    protected function addProductToDB($product_name, $description, $price){
+    public function addProductToDB($product_name, $description, $price){
 
         $connection = $this->connect();
 
@@ -22,7 +23,6 @@ class Product extends Database{
         $query .= "VALUES('$product_name', '$description', '$price')";
 
         $result = mysqli_query($connection, $query);
-        $resultcheck = mysqli_num_rows($result);
 
         if(!$result){
             die('Adding product failed' . mysqli_error($connection));

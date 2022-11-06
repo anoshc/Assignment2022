@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
 
     $product_name = isset($_POST['product_name']);
     $description = isset($_POST['description']);
-    $price = isset($_POST['price']); 
+    $price = isset($_POST['price']);
 
     // step 1 - check if any of the value from form is empty, if yes give error message to user and stop the process
 
@@ -31,7 +31,6 @@ if (isset($_POST['submit'])) {
 
     $result = $product->addProductToDB($product_name, $description, $price);
     header("location: index.php");
-
 }
 ?>
 
@@ -42,6 +41,9 @@ if (isset($_POST['submit'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/main.css">
     <title>Ecommerce - Admin Area </title>
 </head>
 
@@ -60,7 +62,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="input-group">
             <label for="price">Price</label>
-            <input type="text" id="price" name="price" value=""><br>
+            <input type="number" id="price" name="price" value=""><br>
         </div>
         <div class="input-group">
             <button type="submit" id="submit" name="submit" class="button">
