@@ -32,7 +32,7 @@ class Database
 
     protected function readFromTable($tableName)
     {
-        echo "Database:readFromTable<br>";
+        // echo "Database:readFromTable<br>";
         $connection = Database::connect();
         //query the database
         $query = "SELECT * FROM $tableName";

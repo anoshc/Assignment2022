@@ -1,41 +1,15 @@
 <?php
 include "functions.php";
-require "classes/class_Product.php";
-displayNavBar();
+require_once "classes/class_User.php";
+require_once "classes/class_Product.php";
+$user = new User();
 
-if (isset($_POST['submit'])) {
-    $product = new Product();
-
-    $product_name = $_POST['product_name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-
-    // step 1 - check if any of the value from form is empty, if yes give error message to user and stop the process
-
-    if (empty($product_name)) {
-        header("location: adminPage.php?error=Password is required");
-        exit();
-    } else if (empty($description)) {
-        //$_POST = array();
-        echo "Description is required";
-        return;
-    } else if (empty($price)) {
-        //$_POST = array();
-        echo "Price is required";
-        return;
-    }
-
-    $result = $product->addProductToDB($product_name, $description, $price);
-    if ($result > 0) {
-        header('location: adminPage.php');
-        exit();
-    } else {
-        header("location: adminPage.php?error=Incorrect username or password");
-        exit();
-    }
+if (!$user->isAdmin()) {
+    header("location: index.php");
 }
-?>
 
+displayNavBar();
+?>
 
 
 <!DOCTYPE html>
@@ -43,50 +17,96 @@ if (isset($_POST['submit'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/main.css">
     <title>Ecommerce - Admin Area </title>
+    <link rel="stylesheet" href="style/main.css">
+
 </head>
 
 <body>
 
-    <h2>Create new product</h2>
-
-    <form action="adminPage.php" method="post">
-        <?php if (isset($_GET['error'])) { ?>
-            <p class="error"><?php echo $_GET['error']; ?></p>
-        <?php } ?>
-        <div class="input-group">
-            <label for="product_name">Product name</label>
-            <input type="text" id="product_name" name="product_name"><br>
-        </div>
-        <div class="input-group">
-            <label for="description">Description</label>
-            <input type="text" id="description" name="description"><br>
-        </div>
-        <div class="input-group">
-            <label for="price">Price</label>
-            <input type="number" id="price" name="price" /><br>
-        </div>
-        <div class="input-group">
-            <button type="submit" id="submit" name="submit" class="button">
-                Submit
-            </button>
-        </div>
-    </form>
-
     <?php
+
+    $product = new Product();
 
     // Have a table to display current products
 
+    createTable($product->getData());
+
     // Add a form  to create a new product
+
+
+    if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && $_FILES['my_file']['name'] != "") {
+
+
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $price = $_POST['price'];
+
+        if (empty($name)) {
+            header("location: adminPage.php?error=Product name is required");
+            exit();
+        } else if (empty($description)) {
+            header("location: adminPage.php?error=Description is required");
+            exit();
+        } else if (empty($price)) {
+            header("location: adminPage.php?error=Price is required");
+            exit();
+        } else {
+
+            $product->product_Name = $name;
+            $product->description = $description;
+            $product->price = $price;
+            $product->image = uploadProductImage($_FILES);
+
+            echo $product->image;
+
+            $result = $product->addProductToDB();
+
+            if ($result > 0) {
+                header('location: adminPage.php');
+                exit();
+            } else {
+                header("location: adminPage.php?error=Something went wrong, try again");
+                exit();
+            }
+        }
+    }
 
     // Add functionality to delete an existing product
 
 
 
     ?>
+
+
+    <header>
+        <h2>Create a new product</h2>
+    </header>
+
+    <form action="adminPage.php" method="post" enctype='multipart/form-data'>
+        <?php if (isset($_GET['error'])) { ?>
+            <p class="error"><?php echo $_GET['error']; ?></p>
+        <?php } ?>
+        <div class="input-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="input-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description">
+        </div>
+        <div class="input-group">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price">
+        </div>
+        <div class="input-group">
+            <label for="my_file">Product Image</label>
+            <input type="file" name="my_file" id="my_file">
+        </div>
+        <div class="input-group">
+            <button type="submit" class="btn" name="login-btn">Create</button>
+        </div>
+    </form>
 
 
 

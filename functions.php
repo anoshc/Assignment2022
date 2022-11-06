@@ -10,8 +10,9 @@ function displayNavBar()
     echo "<a href='index.php'>Home</a>  ";
     echo "<a href='shoppingCart.php'>Shopping Cart</a>  ";
 
+
     if ($user->isAdmin()) {
-        echo "<a href='adminPage.php'>Admin Page</a>  ";
+        echo "<a href='adminPage.php'>Admin page</a>  ";
     }
 
     if ($user->isLoggedIn()) {
@@ -19,8 +20,6 @@ function displayNavBar()
     } else {
         echo "<a href='login.php'>Sign in</a>  ";
     }
-
-
     // You can add more pages here
 
 
@@ -81,10 +80,9 @@ function createAssocArray($headersArray, $valuesArray)
 function createTable($resArray)
 {
     echo "<table>";
+    $isFirstRow = false;
 
     foreach ($resArray as $item) {
-
-
 
         if ($isFirstRow == FALSE) {
             // first print headers
@@ -112,4 +110,20 @@ function createTable($resArray)
         }
     }
     echo "</table>";
+}
+
+function uploadProductImage($files)
+{
+    $target_dir = "data/";
+    $file = $files['my_file']['name'];
+    $path = pathinfo($file);
+    $filename = $path['filename'] . uniqid();
+    $ext = $path['extension'];
+    $temp_name = $files['my_file']['tmp_name'];
+    $filename_ext  = $filename . "." . $ext;
+    $path_filename_ext = $target_dir . $filename_ext;
+
+    move_uploaded_file($temp_name, $path_filename_ext);
+
+    return $filename_ext;
 }
