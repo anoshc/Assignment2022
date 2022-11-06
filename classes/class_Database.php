@@ -46,6 +46,7 @@ class Database
             //echo "Entries Retrieved!<br>";
         }
 
+        $resArray = [];
         //read 1 row at a time
         $idx = 0;
         while ($row = mysqli_fetch_assoc($result)) {

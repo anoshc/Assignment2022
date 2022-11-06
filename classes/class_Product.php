@@ -29,4 +29,11 @@ class Product extends Database
     {
         return $this->readFromTable('products');
     }
+
+    public function deleteProduct($id)
+    {
+        $connection = $this->connect();
+        $query = "DELETE FROM products WHERE product_id='$id'";
+        return mysqli_query($connection, $query);
+    }
 }
