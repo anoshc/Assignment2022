@@ -9,7 +9,10 @@ function displayNavBar()
 
     echo "<a href='index.php'>Home</a>  ";
     echo "<a href='shoppingCart.php'>Shopping Cart</a>  ";
-    echo "<a href='adminPage.php'>Admin Page</a>  ";
+
+    if ($user->isAdmin()) {
+        echo "<a href='adminPage.php'>Admin Page</a>  ";
+    }
 
     if ($user->isLoggedIn()) {
         echo "<a href='logout.php'>Logout</a>  ";
@@ -17,7 +20,7 @@ function displayNavBar()
         echo "<a href='login.php'>Sign in</a>  ";
     }
 
-    
+
     // You can add more pages here
 
 
