@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $product = new Product();
 
     $product_name = isset($_POST['product_name']);
-    $productDescription = isset($_POST['description']);
+    $description = isset($_POST['description']);
     $price = isset($_POST['price']); 
 
     // step 1 - check if any of the value from form is empty, if yes give error message to user and stop the process
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 
 
     $result = $product->addProductToDB($product_name, $description, $price);
-    header('location: index.php');
+    header("location: index.php");
 
 }
 ?>
@@ -51,9 +51,8 @@ if (isset($_POST['submit'])) {
 
     <form action="adminPage.php" method="post">
         <div class="input-group">
-
-            <label for="name">Product name</label>
-            <input type="text" id="name" name="name" value=""><br>
+            <label for="product_name">Product name</label>
+            <input type="text" id="product_name" name="product_name" value=""><br>
         </div>
         <div class="input-group">
             <label for="description">Description</label>

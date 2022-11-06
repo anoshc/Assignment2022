@@ -22,6 +22,7 @@ class Product extends Database{
         $query .= "VALUES('$product_name', '$description', '$price')";
 
         $result = mysqli_query($connection, $query);
+        $resultcheck = mysqli_num_rows($result);
 
         if(!$result){
             die('Adding product failed' . mysqli_error($connection));
