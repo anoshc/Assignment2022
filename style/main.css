@@ -1,18 +1,28 @@
 input {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
 
 label {
-    display: block;
+  display: block;
 }
 
 .error {
-    background: #F2DEDE;
-    color: #A94442;
-    padding: 10px;
-    width: 50%;
-    border-radius: 5px;
+  background: #f2dede;
+  color: #a94442;
+  padding: 10px;
+  width: 50%;
+  border-radius: 5px;
+}
+
+.card {
+  border: 1px solid;
+  width: 250px;
+  height: 250px;
+  padding: 25px;
+  text-align: center;
+  float: left;
+  margin-right: 20px;
 }

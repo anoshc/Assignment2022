@@ -8,7 +8,6 @@ function displayNavBar()
     echo "<nav>";
 
     echo "<a href='index.php'>Home</a>  ";
-    echo "<a href='mainPage.php'>Main page</a>  ";
     echo "<a href='shoppingCart.php'>Shopping Cart</a>  ";
 
 
