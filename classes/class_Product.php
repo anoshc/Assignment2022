@@ -36,4 +36,18 @@ class Product extends Database
         $query = "DELETE FROM products WHERE product_id='$id'";
         return mysqli_query($connection, $query);
     }
+
+    function productsList()
+    {
+
+        $connection = $this->connect();
+
+        $query = ("SELECT * FROM products");
+        $result = mysqli_query($connection, $query);
+
+        $productList = mysqli_num_rows($result) <= 0;
+        $this->disconnect($connection);
+
+        return $productList;
+    }
 }
