@@ -15,6 +15,7 @@ $products = $product->getData();
 <head>
     <meta charset="UTF-8">
     <title>Ecommerce - Product Page </title>
+    <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
@@ -31,7 +32,7 @@ $products = $product->getData();
                 <img src="data/<?php echo $products[$i]['image_name']; ?>" width="100" height="100" />
                 <?php
                 echo $products[$i]['description'];
-                echo $products[$i]['price'];
+                echo $products[$i]['price'] . "<br>";
                 ?>
 
     </div>
