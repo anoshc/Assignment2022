@@ -26,3 +26,13 @@ label {
     float: left;
     margin-right: 20px;
 }
+
+.row {
+    border: 1px solid;
+    display: inline-block;
+    padding: 10px;
+}
+
+.img {
+    margin-top: 5px;
+}
