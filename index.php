@@ -37,7 +37,7 @@ $products = $product->getData();
 
             <div class="card">
                 <img src="data/<?php echo $products[$i]['image_name']; ?>" width="200" height="200" />
-                <a href="product.php?id=<?php echo $products[$i]['product_id']; ?>">
+                <a href="productPage.php?id=<?php echo $products[$i]['product_id']; ?>">
                     <?php echo $products[$i]['product_name']; ?></a>
             </div>
     <?php
