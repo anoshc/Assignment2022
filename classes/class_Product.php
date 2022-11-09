@@ -30,6 +30,14 @@ class Product extends Database
         return $this->readFromTable('products');
     }
 
+    public function get($id)
+    {
+        $connection = $this->connect();
+        $query = "SELECT * FROM products WHERE product_id='$id'";
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
     public function deleteProduct($id)
     {
         $connection = $this->connect();
