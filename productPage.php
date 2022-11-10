@@ -7,6 +7,37 @@ displayNavBar();
 $product = new Product();
 //$products = $product->getData();
 
+if (isset($_POST['addToCart-btn'])){
+    
+$product = array(
+    
+    "product_id" => $_POST['product_id']
+
+);
+
+if(filesize("shoppingCart.json") == 0){
+
+    $firstRecord = array($product);
+
+    $savedData = $firstRecord;
+
+} else{
+
+    $oldData = json_decode(file_get_contents("shoppingCart.json"));
+    array_push($oldData, $product);
+
+}
+
+if(!file_put_contents("shoppingCart.json", json_encode($savedData, JSON_PRETTY_PRINT), LOCK_EX)){
+
+$error = "error, try again";
+
+} else{
+    $success = "product, stored successfully";
+}
+
+}
+
 
 if (!isset($_GET["id"])) {
     header('location: index.php');
@@ -69,7 +100,7 @@ $pPrice = $result['price'];
             <input type="number" name="quantity" id="quantity">
         </div>
         <div class="qty-form">
-            <button type="submit" class="submit-btn" name="submit">Add to cart</button>
+            <button type="submit" class="addToCart-btn" name="addToCart-btn">Add to cart</button>
         </div>
     </form>
 
