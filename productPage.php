@@ -51,10 +51,10 @@ $pPrice = $result['price'];
         Note that the product page can only be accessed from the main page. 
      -->
 
-    <h2>Product name:<?php echo $pName; ?></h2>
+    <h2>Product name: <?php echo $pName; ?></h2>
     <img src="data/<?php echo $pImage ?>" width="150" height="150" />
-    <p>Product description:<?php echo $pDes; ?></p>
-    <p>Product Price:<?php echo $pPrice; ?> USD</p>
+    <p>Product description: <?php echo $pDes; ?></p>
+    <p>Product Price: <?php echo $pPrice; ?> KR</p>
 
 
 
@@ -69,7 +69,7 @@ $pPrice = $result['price'];
             <input type="number" name="quantity" id="quantity">
         </div>
         <div class="qty-form">
-            <button type="submit" class="submit-btn" name="submit">Submit</button>
+            <button type="submit" class="submit-btn" name="submit">Add to cart</button>
         </div>
     </form>
 
