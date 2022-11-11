@@ -9,9 +9,13 @@ $product = new Product();
 
 if (isset($_POST['addToCart-btn'])){
 
+    cart($_GET['id'], $_POST['quantity']);
     $quantity = $_POST['quantity'];
-    cart($productId, $quantity);
     setcookie('addToCart-btn', 1, time() + (86400 * 7), 'localhost', false, 'httponly');
+
+    // $quantity = $_POST['quantity'];
+    // cart($productId, $quantity);
+    // setcookie('addToCart-btn', 1, time() + (86400 * 7), 'localhost', false, 'httponly');
     
 }
 
