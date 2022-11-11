@@ -46,9 +46,9 @@ class Product extends Database
     }
 }
 
-function cart($productID, $quantity){
+function cart($productID, $quantity)
+{
 
-    $quantity = $_POST['quantity'];
     $file = 'shoppingCart.json';
     $emptyArray = array();
     $values = [
@@ -56,17 +56,15 @@ function cart($productID, $quantity){
         'quantity' => $quantity
     ];
 
-    if(file_exists($file) && file_get_contents($file) != NULL && file_get_contents($file) != ""){
-        
+    if (file_exists($file) && file_get_contents($file) != NULL && file_get_contents($file) != "") {
         $getContent = file_get_contents($file);
         $decode = json_decode($getContent, true);
         array_push($decode, $values);
         $encode = json_encode($decode);
-
-    } else{
+    } else {
         array_push($emptyArray, $values);
         $encode = json_encode($emptyArray);
     }
 
-        file_put_contents($file, $encode);
+    file_put_contents($file, $encode);
 }

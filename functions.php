@@ -8,8 +8,15 @@ function displayNavBar()
     echo "<nav>";
 
     echo "<a href='index.php'>Home</a>  ";
-    echo "<a href='shoppingCart.php'>Shopping Cart</a>  ";
 
+    if (checkIfItemInCart()) {
+        // cookie is set, get information about items in shopping cart
+        $items = getFromFile('shoppingCart.json');
+        $cnt = count($items);
+        echo "<a href='shoppingCart.php'>Shopping Cart ($cnt)</a>  ";
+    } else {
+        echo "<a href='shoppingCart.php'>Shopping Cart</a>  ";
+    }
 
     if ($user->isAdmin()) {
         echo "<a href='adminPage.php'>Admin page</a>  ";
@@ -36,6 +43,7 @@ function readThisFile($filename)
 
     //Output one line until end-of-file
     $idx = 0;
+    // $valuesArray;
     while (!feof($file)) {
 
         if ($idx == 0) {
@@ -129,3 +137,24 @@ function uploadProductImage($files)
 }
 
 
+function checkIfItemInCart()
+{
+    return isset($_COOKIE['cart']);
+}
+
+
+function getFromFile($filename)
+{
+    $headers = array('http' => array('method' => 'GET', 'header' => 'Content: type=application/json \r\n' . '$agent \r\n' . '$hash'));
+
+    $context = stream_context_create($headers);
+
+    $str = file_get_contents($filename, FILE_USE_INCLUDE_PATH, $context);
+
+    $str = utf8_encode($str);
+
+    $str = json_decode($str, true);
+
+
+    return $str;
+}

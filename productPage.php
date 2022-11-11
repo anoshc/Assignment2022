@@ -7,24 +7,19 @@ displayNavBar();
 $product = new Product();
 //$products = $product->getData();
 
-if (isset($_POST['addToCart-btn'])){
 
-    cart($_GET['id'], $_POST['quantity']);
-    setcookie('addToCart-btn', 1, time() + (86400 * 7), 'localhost', false, 'httponly');
-
-    // $quantity = $_POST['quantity'];
-    // cart($productId, $quantity);
-    // setcookie('addToCart-btn', 1, time() + (86400 * 7), 'localhost', false, 'httponly');
-    
-}
-
-
-if (!isset($_GET["id"])) {
+if (!isset($_GET["id"]) && empty($_POST["pid"])) {
     header('location: index.php');
     exit();
 }
 
-$productId = htmlspecialchars($_GET["id"]);
+$productId;
+
+if (isset($_GET["id"])) {
+    $productId = htmlspecialchars($_GET["id"]);
+} else if (!empty($_POST["pid"])) {
+    $productId = $_POST["pid"];
+}
 
 $result = $product->get($productId);
 
@@ -39,6 +34,22 @@ $pName = $result['product_name'];
 $pDes = $result['description'];
 $pImage = $result['image_name'];
 $pPrice = $result['price'];
+
+if (isset($_POST['addToCart-btn'])) {
+
+    if (empty($_POST["quantity"])) {
+        header('location: productPage.php?id=' . $pid);
+        exit();
+    }
+
+    cart($pid, $_POST['quantity']);
+    setcookie('cart', 1, time() + (86400 * 7), '/', false, 'httponly');
+}
+
+
+
+
+
 
 
 ?>
@@ -77,7 +88,8 @@ $pPrice = $result['price'];
     <form action="productPage.php" method="post">
         <div class="qty-form">
             <label for="quantity">Quantity</label>
-            <input type="number" name="quantity" id="quantity">
+            <input type="number" name="quantity" id="quantity" />
+            <input type="hidden" name="pid" id="pid" value="<?php echo $pid; ?>" />
         </div>
         <div class="qty-form">
             <button type="submit" class="addToCart-btn" name="addToCart-btn">Add to cart</button>
