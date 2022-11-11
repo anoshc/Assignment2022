@@ -127,3 +127,28 @@ function uploadProductImage($files)
 
     return $filename_ext;
 }
+
+function cart($productID, $quantity){
+
+    $quantity = $_POST['quantity'];
+    $file = 'shoppingCart.json';
+    $emptyArray = array();
+    $values = [
+        'product_id' => $productID,
+        'quantity' => $quantity
+    ];
+
+    if(file_exists($file) && file_get_contents($file) != NULL && file_get_contents($file) != ""){
+        
+        $getContent = file_get_contents($file);
+        $decode = json_decode($getContent, true);
+        array_push($decode, $values);
+        $encode = json_encode($decode);
+
+    } else{
+        array_push($emptyArray, $values);
+        $encode = json_encode($emptyArray);
+    }
+
+        file_put_contents($file, $encode);
+}

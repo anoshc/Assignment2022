@@ -8,34 +8,11 @@ $product = new Product();
 //$products = $product->getData();
 
 if (isset($_POST['addToCart-btn'])){
+
+    $quantity = $_POST['quantity'];
+    cart($productId, $quantity);
+    setcookie('addToCart-btn', 1, time() + (86400 * 7), 'localhost', false, 'httponly');
     
-$product = array(
-    
-    "product_id" => $_POST['product_id']
-
-);
-
-if(filesize("shoppingCart.json") == 0){
-
-    $firstRecord = array($product);
-
-    $savedData = $firstRecord;
-
-} else{
-
-    $oldData = json_decode(file_get_contents("shoppingCart.json"));
-    array_push($oldData, $product);
-
-}
-
-if(!file_put_contents("shoppingCart.json", json_encode($savedData, JSON_PRETTY_PRINT), LOCK_EX)){
-
-$error = "error, try again";
-
-} else{
-    $success = "product, stored successfully";
-}
-
 }
 
 
