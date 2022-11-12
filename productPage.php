@@ -46,12 +46,6 @@ if (isset($_POST['addToCart-btn'])) {
     setcookie('cart', 1, time() + (86400 * 7), '/', false, 'httponly');
 }
 
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>

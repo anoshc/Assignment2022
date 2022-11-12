@@ -68,3 +68,4 @@ function cart($productID, $quantity)
 
     file_put_contents($file, $encode);
 }
+?>
