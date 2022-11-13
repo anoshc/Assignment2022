@@ -1,3 +1,8 @@
+<?php
+require "functions.php";
+displayNavBar();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,9 +15,8 @@
 
 <body>
     <h2>Thank you for registering</h2>
-    <p><a href="login.php"></a>Click here to login</p>
-
-<?php getFooter(); ?>
+    <p><a href="login.php">Click here to login</a></p>
+    <?php getFooter(); ?>
 </body>
 
 </html>

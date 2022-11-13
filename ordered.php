@@ -14,11 +14,8 @@ displayNavBar();
 </head>
 
 <body>
-    <div class="container">
 
-        <h2>Thank you for ordering</h2>
-    </div>
-
+    <h2>Thank you for ordering</h2>
     <?php getFooter(); ?>
 </body>
 

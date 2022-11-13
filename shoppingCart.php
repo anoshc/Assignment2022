@@ -138,6 +138,10 @@ displayNavBar();
         </div>
     </form> -->
 
+        <header>
+            <h3>Shopping cart</h3>
+        </header>
+
         <form action="shoppingCart.php" method="post">
             <div class="form-group">
                 <label for="firstname">First name</label>

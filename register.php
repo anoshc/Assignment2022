@@ -19,19 +19,16 @@ displayNavBar();
         // step 1 - check if any of the value from form is empty, if yes give error message to user and stop the process
 
         if (empty($username)) {
-            $_POST = array();
-            echo "Username is required";
-            return;
+            header("location: register.php?error=Username is required");
+            exit();
         }
         if (empty($email)) {
-            $_POST = array();
-            echo "Email is required";
-            return;
+            header("location: register.php?error=Email is required");
+            exit();
         }
         if (empty($password)) {
-            $_POST = array();
-            echo "Password is required";
-            return;
+            header("location: register.php?error=Password is required");
+            exit();
         }
 
         // step 2 - check if email and username is available
@@ -69,7 +66,7 @@ displayNavBar();
         <header>
             <h3>Sign up</h3>
         </header>
-        
+
         <form action="register.php" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
