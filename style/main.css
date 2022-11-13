@@ -1,4 +1,4 @@
-input {
+/* input {
     width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -7,27 +7,17 @@ input {
 
 label {
     display: block;
-}
+} */
 
 .error {
-    background: #f2dede;
-    color: #a94442;
-    padding: 10px;
-    width: 50%;
-    border-radius: 5px;
-}
-
-.card {
-    border: 1px solid;
-    width: 200px;
-    height: 200px;
-    padding: 25px;
-    text-align: center;
-    float: left;
-    margin-right: 20px;
+  background: #f2dede;
+  color: #a94442;
+  padding: 10px;
+  width: 50%;
+  border-radius: 5px;
 }
 
 .qty-form {
-    width: 25%;
-    box-sizing: border-box;
+  width: 25%;
+  box-sizing: border-box;
 }

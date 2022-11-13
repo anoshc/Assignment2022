@@ -2,34 +2,52 @@
 require_once "classes/class_User.php";
 
 
+function getHeader()
+{
+    echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">';
+    echo '<link rel="stylesheet" href="style/main.css">';
+}
+
+function getFooter()
+{
+    echo '<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>';
+    echo '  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>';
+}
+
 function displayNavBar()
 {
     $user = new User();
-    echo "<nav>";
+    echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
 
-    echo "<a href='index.php'>Home</a>  ";
+    echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
+
+    echo '<ul class="navbar-nav mr-auto">';
+
+    echo '<li class="nav-item active"><a href="index.php" class="nav-link">Home</a>';
 
     if (checkIfItemInCart()) {
         // cookie is set, get information about items in shopping cart
         $items = getFromFile('shoppingCart.json');
         $cnt = count($items);
-        echo "<a href='shoppingCart.php'>Shopping Cart ($cnt)</a>  ";
+        echo "<li class='nav-item'><a href='shoppingCart.php' class='nav-link'>Shopping Cart ($cnt)</a>  ";
     } else {
-        echo "<a href='shoppingCart.php'>Shopping Cart</a>  ";
+        echo '<li class="nav-item"><a href="shoppingCart.php" class="nav-link">Shopping Cart</a>';
     }
 
     if ($user->isAdmin()) {
-        echo "<a href='adminPage.php'>Admin page</a>  ";
+        echo '<li class="nav-item"><a href="adminPage.php" class="nav-link">Admin Page</a>';
     }
 
     if ($user->isLoggedIn()) {
-        echo "<a href='logout.php'>Logout</a>  ";
+        echo '<li class="nav-item"><a href="logout.php" class="nav-link">Logout</a>';
     } else {
-        echo "<a href='login.php'>Sign in</a>  ";
+        echo '<li class="nav-item"><a href="login.php" class="nav-link">Sign in</a>';
     }
     // You can add more pages here
 
-
+    echo
+        '</ul>';
+    echo '</div>';
     echo "</nav>";
     echo "<br><br>";
 }
@@ -87,17 +105,19 @@ function createAssocArray($headersArray, $valuesArray)
 // take an associative array as input and creates a table from it. 
 function createTable($resArray)
 {
-    echo "<table>";
+    echo '<table class="table table-striped">';
     $isFirstRow = false;
 
     foreach ($resArray as $item) {
 
         if ($isFirstRow == FALSE) {
             // first print headers
+            echo  '<thead class="thead-dark">';
             echo "<tr>";
             foreach ($item as $key => $value) {
                 echo "<th> $key </th>";
             }
+            echo "</thead>";
             echo "</tr>";
 
             //then print first row of values
@@ -157,4 +177,13 @@ function getFromFile($filename)
 
 
     return $str;
+}
+
+
+function removeFromCookie()
+{
+    if (isset($_COOKIE['cart'])) {
+        unset($_COOKIE['cart']);
+        setcookie('cart', null, -1, '/');
+    }
 }

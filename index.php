@@ -19,34 +19,45 @@ $products = $product->getData();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="style/main.css">
+    <?php getHeader(); ?>
 
 </head>
 
 <body>
 
-    <?php
-    // Have a table to display current products
+    <div class="container">
+        <div class="row">
+            <?php
+            // Have a table to display current products
 
 
-    if (count($products) > 0) {
+            if (count($products) > 0) {
 
-        for ($i = 0; $i < count($products); $i++) {
+                for ($i = 0; $i < count($products); $i++) {
 
-    ?>
+            ?>
+                    <div class="col-sm-3 mr-5 mb-5">
+                        <div class="card" style="width: 18rem;">
+                            <img src="data/<?php echo $products[$i]['image_name']; ?>" class="card-img-top" width="200" height="200" />
+                            <div class="card-body">
+                                <h5 class="card-title"> <?php echo $products[$i]['product_name']; ?></a></h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a class="btn btn-primary" href="productPage.php?id=<?php echo $products[$i]['product_id']; ?>">Details</a>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="card">
-                <img src="data/<?php echo $products[$i]['image_name']; ?>" width="200" height="200" />
-                <a href="productPage.php?id=<?php echo $products[$i]['product_id']; ?>">
-                    <?php echo $products[$i]['product_name']; ?></a>
-            </div>
-    <?php
+            <?php
 
-        }
-    }
+                }
+            }
 
 
-    ?>
+            ?>
+        </div>
+    </div>
+    <?php getFooter(); ?>
+
 
 </body>
 

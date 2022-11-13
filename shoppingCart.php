@@ -13,78 +13,106 @@ displayNavBar();
 
 if (checkIfItemInCart()) {
     $items = getFromFile('shoppingCart.json');
-
     $total = 0;
-    foreach ($items as $item) {
 
-        $result = $product->get($item['product_id']);
+?>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total for this item</th>
+        </tr>
+        <?php
+
+        foreach ($items as $item) {
+        ?>
+            <tr>
+                <?php
+                $result = $product->get($item['product_id']);
+
+                $pName = $result['product_name'];
+                $pPrice = $result['price'];
+                $qty =  $item['quantity'];
+                ?>
+                <td><?php echo $pName; ?></td>
+                <td><?php echo $pPrice; ?></td>
+                <td><?php echo $qty; ?></td>
+                <td><?php echo $qty * $pPrice; ?></td>
+                <?php
+                $total += $qty * $pPrice;
+                ?>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+
+    <h3><?php echo ' your total is ' . $total; ?></h3>
 
 
-        $displayArray[$idx]['Product name'] = $item[$pName];
-        $displayArray[$idx]['Price'] = $item[$pPrice];
-        $displayArray[$idx]['Quantity'] = $item[$qty];
+<?php
 
-        $pName = $result['product_name'];
-        $pPrice = $result['price'];
-        $qty =  $item['quantity'];
+    if (
+        isset($_POST['confirm-btn']) &&
+        isset($_POST['firstname']) &&
+        isset($_POST['lastname']) &&
+        isset($_POST['address']) &&
+        isset($_POST['country'])
+    ) {
 
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $address = $_POST['address'];
+        $country = $_POST['country'];
 
-        echo $pName;
-        echo $pPrice;
-        echo $qty;
-        echo $qty * $pPrice . '<br>';
-
-        $total += $qty * $pPrice;
-    }
-    $idx++;
-    createTable($displayArray);
-
-    echo ' your total is ' .  $total . '<br>';
-
-
-
-if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['address']) && isset($_POST['country']) != "") {
-
-
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $address = $_POST['address'];
-    $country = $_POST['country'];
-
-    if (empty($firstname)) {
-        header("location: shoppingCart.php?error=First name is required");
-        echo "First name is required";
-        exit();
-    } else if (empty($lastname)) {
-        header("location: shoppingCart.php?error=Last name is required");
-        echo "Last name is required";
-        exit();
-    } else if (empty($address)) {
-        header("location: shoppingCart.php?error=Address is required");
-        echo "Address is required";
-        exit();
-    }else if (empty($country)) {
-        header("location: shoppingCart.php?error=Country is required");
-        echo "Country is required";
-        exit();
-     } else {
-
-        $customers->firstname = $firstname;
-        $customers->lastname = $lastname;
-        $customers->address = $address;
-        $customers->country = $country;
-
-        $result = $customers->customers($firstname, $lastname, $address, $country);
-
-        if ($result > 0) {
-            header('location: shoppingCart.php');
+        if (empty($firstname)) {
+            header("location: shoppingCart.php?error=First name is required");
+            echo "First name is required";
+            exit();
+        } else if (empty($lastname)) {
+            header("location: shoppingCart.php?error=Last name is required");
+            echo "Last name is required";
+            exit();
+        } else if (empty($address)) {
+            header("location: shoppingCart.php?error=Address is required");
+            echo "Address is required";
+            exit();
+        } else if (empty($country)) {
+            header("location: shoppingCart.php?error=Country is required");
+            echo "Country is required";
             exit();
         } else {
-            header("location: shoppingCart.php?error=Something went wrong, try again");
-            exit();
+
+            $customers->firstname = $firstname;
+            $customers->lastname = $lastname;
+            $customers->address = $address;
+            $customers->country = $country;
+
+            $result = $customers->add();
+
+            if ($result) {
+
+                $items = getFromFile('shoppingCart.json');
+
+
+                foreach ($items as $item) {
+                    $pid = $item['product_id'];
+                    $qty = $item['quantity'];
+                    $customers->insertOrder($pid, $qty);
+                }
+
+                removeFromCookie();
+                unlink('shoppingCart.json');
+                header('location: ordered.php');
+                exit();
+            } else {
+                header("location: shoppingCart.php?error=Something went wrong, try again");
+                exit();
+            }
         }
     }
-}
 }
 ?>
 
@@ -94,18 +122,18 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['add
 <head>
     <meta charset="UTF-8">
     <title>Ecommerce - Shopping Cart </title>
+    <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
 
-<form action="shoppingCart.php" method="post">
+    <!-- <form action="shoppingCart.php" method="post">
         <div class="input-group">
             <button type="submit" class="pay-btn" name="confirm-btn">Pay</button>
         </div>
-    </form>
+    </form> -->
 
-<form action="shoppingCart.php" method="post">
-
+    <form action="shoppingCart.php" method="post">
         <div class="input-group">
             <label for="firstname">First name</label>
             <input type="text" name="firstname" id="firstname" />
