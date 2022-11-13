@@ -38,10 +38,9 @@ $products = $product->getData();
             ?>
                     <div class="col-sm-3 mr-5 mb-5">
                         <div class="card" style="width: 18rem;">
-                            <img src="data/<?php echo $products[$i]['image_name']; ?>" class="card-img-top" width="200" height="200" />
+                            <img src="data/<?php echo $products[$i]['image_name']; ?>" class="card-img-top" />
                             <div class="card-body">
                                 <h5 class="card-title"> <?php echo $products[$i]['product_name']; ?></a></h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 <a class="btn btn-primary" href="productPage.php?id=<?php echo $products[$i]['product_id']; ?>">Details</a>
                             </div>
                         </div>

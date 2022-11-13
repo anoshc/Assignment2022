@@ -87,7 +87,7 @@ if (isset($_POST['addToCart-btn'])) {
                 <input type="hidden" name="pid" id="pid" value="<?php echo $pid; ?>" />
             </div>
             <div class="qty-form">
-                <button type="submit" class="addToCart-btn btn btn-primary" name="addToCart-btn">Add to cart</button>
+                <button type="submit" class="btn btn-primary" name="addToCart-btn">Add to cart</button>
             </div>
         </form>
 
