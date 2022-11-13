@@ -42,7 +42,48 @@ if (checkIfItemInCart()) {
     echo ' your total is ' .  $total . '<br>';
 
 
-    if(isset($_POST['']))
+    if (isset($_POST['pay-btn'])) {
+
+?>
+
+        <form action="shoppingCart.php" method="post">
+
+            <div class="input-group">
+                <label for="firstname">First name</label>
+                <input type="text" name="firstname" id="firstname" />
+            </div>
+            <div class="input-group">
+                <label for="lastname">Last name</label>
+                <input type="text" name="lastname" id="lastname" />
+            </div>
+            <div class="input-group">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" />
+            </div>
+            <div class="input-group">
+                <label for="country">Country</label>
+                <input type="country" name="country" id="country" />
+            </div>
+            <div class="input-group">
+                <button type="submit" class="confirm-btn" name="confirm-btn">Confirm order</button>
+            </div>
+        </form>
+
+    <?php
+
+    } else {
+
+    ?>
+
+        <form action="shoppingCart.php" method="post">
+            <div class="input-group">
+                <button type="submit" class="pay-btn" name="pay-btn">Pay</button>
+            </div>
+        </form>
+
+<?php
+
+    }
 
 
 
@@ -97,34 +138,6 @@ if (checkIfItemInCart()) {
 
 <body>
 
-    <form action="shoppingCart.php" method="post">
-        <div class="input-group">
-            <button type="submit" class="pay-btn" name="pay-btn">Pay</button>
-        </div>
-    </form>
-
-    <form action="shoppingCart.php" method="post">
-
-        <div class="input-group">
-            <label for="firstname">First name</label>
-            <input type="text" name="firstname" id="firstname" />
-        </div>
-        <div class="input-group">
-            <label for="lastname">Last name</label>
-            <input type="text" name="lastname" id="lastname" />
-        </div>
-        <div class="input-group">
-            <label for="address">Address</label>
-            <input type="text" name="address" id="address" />
-        </div>
-        <div class="input-group">
-            <label for="country">Country</label>
-            <input type="country" name="country" id="country" />
-        </div>
-        <div class="input-group">
-            <button type="submit" class="confirm-btn" name="confirm-btn">Confirm order</button>
-        </div>
-    </form>
 
     <?php
     // Add a button for "Pay", when clicked, a form should appear for the customer to fill in his details, with a final button named "confirm Pay", which adds the order onto the database. 
