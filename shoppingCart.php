@@ -53,19 +53,15 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['add
 
     if (empty($firstname)) {
         header("location: shoppingCart.php?error=First name is required");
-        echo "First name is required";
         exit();
     } else if (empty($lastname)) {
         header("location: shoppingCart.php?error=Last name is required");
-        echo "Last name is required";
         exit();
     } else if (empty($address)) {
         header("location: shoppingCart.php?error=Address is required");
-        echo "Address is required";
         exit();
     }else if (empty($country)) {
         header("location: shoppingCart.php?error=Country is required");
-        echo "Country is required";
         exit();
      } else {
 
