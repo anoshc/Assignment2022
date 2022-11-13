@@ -42,6 +42,9 @@ if (checkIfItemInCart()) {
     echo ' your total is ' .  $total . '<br>';
 
 
+    if(isset($_POST['']))
+
+
 
     if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['address']) && isset($_POST['country']) != "") {
 
@@ -96,7 +99,7 @@ if (checkIfItemInCart()) {
 
     <form action="shoppingCart.php" method="post">
         <div class="input-group">
-            <button type="submit" class="pay-btn" name="confirm-btn">Pay</button>
+            <button type="submit" class="pay-btn" name="pay-btn">Pay</button>
         </div>
     </form>
 
