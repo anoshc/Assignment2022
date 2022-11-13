@@ -19,15 +19,15 @@ if (checkIfItemInCart()) {
 
         $result = $product->get($item['product_id']);
 
-        $pid = $result['product_id'];
+
+        $displayArray[$idx]['Product name'] = $item[$pName];
+        $displayArray[$idx]['Price'] = $item[$pPrice];
+        $displayArray[$idx]['Quantity'] = $item[$qty];
+
         $pName = $result['product_name'];
         $pPrice = $result['price'];
         $qty =  $item['quantity'];
 
-        $displayArray[$idx]['Product id'] = $item[$pid];
-        $displayArray[$idx]['Product name'] = $item[$pName];
-        $displayArray[$idx]['Price'] = $item[$pPrice];
-        $displayArray[$idx]['Quantity'] = $item[$qty];
 
         echo $pName;
         echo $pPrice;
@@ -97,6 +97,12 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['add
 </head>
 
 <body>
+
+<form action="shoppingCart.php" method="post">
+        <div class="input-group">
+            <button type="submit" class="pay-btn" name="confirm-btn">Pay</button>
+        </div>
+    </form>
 
 <form action="shoppingCart.php" method="post">
 
